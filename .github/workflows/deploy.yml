@@ -23,12 +23,12 @@ jobs:
     # Step 3: Install dependencies
     - name: Install dependencies
       run: npm install
-      working-directory: ./CST8922_Backend  # Specify the directory where package.json is located
+      working-directory: ./  # Specify the directory where package.json is located
 
     # Step 4: Run build (if applicable)
     - name: Build the app
       run: npm run build
-      working-directory: ./CST8922_Backend  # Use the correct directory if needed
+      working-directory: ./  # Use the correct directory if needed
 
     # Step 5: Deploy to Azure
     - name: Deploy to Azure Web App
@@ -36,4 +36,4 @@ jobs:
       with:
         app-name: team7-backend-app-unique-123  # Replace with your Azure App Service name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Store your Azure publish profile in GitHub Secrets
-        package: ./CST8922_Backend  # Use the correct directory if your app is in a subdirectory
+        package: ./  # Use the correct directory if your app is in a subdirectory
