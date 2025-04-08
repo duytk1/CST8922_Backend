@@ -1,0 +1,39 @@
+name: Azure Web App CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Adjust if you're using a different branch like 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Node.js (adjust version as needed)
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Change this if you're using a different version
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./CST8922_Backend  # Specify the directory where package.json is located
+
+    # Step 4: Run build (if applicable)
+    - name: Build the app
+      run: npm run build
+      working-directory: ./CST8922_Backend  # Use the correct directory if needed
+
+    # Step 5: Deploy to Azure
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: team7-backend-app-unique-123  # Replace with your Azure App Service name
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Store your Azure publish profile in GitHub Secrets
+        package: ./CST8922_Backend  # Use the correct directory if your app is in a subdirectory
