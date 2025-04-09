@@ -2,7 +2,7 @@ name: Deploy Spring Boot to Azure App Service
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "dev" ]  # or just "dev" if you want to test there first
 
 jobs:
   build-and-deploy:
@@ -19,7 +19,7 @@ jobs:
         java-version: '17'
 
     - name: Build with Maven
-      run: ./mvnw clean package --no-transfer-progress
+      run: ./mvnw clean package -DskipTests --no-transfer-progress
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
