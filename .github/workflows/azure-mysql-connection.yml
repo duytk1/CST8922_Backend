@@ -1,0 +1,40 @@
+name: Connect to Azure MySQL Database
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  connect-to-db:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up MySQL client
+      - name: Install MySQL Client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-client
+
+      # Set up environment variables for the database connection
+      - name: Set up database credentials
+        run: |
+          echo "MYSQL_HOST=team-7-database.mysql.database.azure.com" >> $GITHUB_ENV
+          echo "MYSQL_USER=team7admin" >> $GITHUB_ENV
+          echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> $GITHUB_ENV
+          echo "MYSQL_DB=team7" >> $GITHUB_ENV
+          echo "MYSQL_PORT=3306" >> $GITHUB_ENV
+
+      # Connect to Azure MySQL database and execute a command
+      - name: Connect to MySQL and execute command
+        run: |
+          mysql -h $MYSQL_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD -P $MYSQL_PORT $MYSQL_DB -e "SHOW TABLES;"
+
+      # Add other database operations as needed (e.g., migrations, queries, etc.)
