@@ -7,7 +7,7 @@ APP_SERVICE_PLAN="team7-plan"
 APP_NAME="team7-microservice-app"
 MYSQL_SERVER="team7-db-server"
 MYSQL_ADMIN="dbadmin"
-MYSQL_PASSWORD="YourSecureP@ssw0rd!"   # <-- CHANGE THIS!
+MYSQL_PASSWORD="P@ssw0rd"   # <-- CHANGE THIS!
 DATABASE_NAME="team7db"
 JAR_FILE="target/team7-0.0.1-SNAPSHOT.jar"
 
