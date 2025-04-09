@@ -2,7 +2,7 @@ name: Deploy Spring Boot to Azure App Service
 
 on:
   push:
-    branches: [ "dev" ]  # or just "dev" if you want to test there first
+    branches: [ "dev" ]
 
 jobs:
   build-and-deploy:
@@ -11,6 +11,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Cache Maven packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-maven-
 
     - name: Set up Java
       uses: actions/setup-java@v3
